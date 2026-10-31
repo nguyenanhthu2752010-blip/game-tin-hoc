@@ -2,17 +2,110 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Game Trắc Nghiệm</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Trắc Nghiệm Tin Học</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
+        h2 {
+            color: #0066cc;
+        }
+        #quizScreen {
+            background: white;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: left;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        #scoreScreen {
+            font-size: 24px;
+            font-weight: bold;
+            color: green;
+            margin-top: 30px;
+        }
+    </style>
 </head>
 <body>
-    <div id="quizScreen"></div>
-    <div id="scoreScreen" style="display:none;"></div>
+
+    <h2>Trò Chơi Trắc Nghiệm Tin Học</h2>
+    
+    <div id="quizScreen">
+        <!-- Khu vực hiển thị câu hỏi và các đáp án sẽ chạy tự động vào đây -->
+    </div>
+    
+    <div id="scoreScreen" style="display: none;"></div>
+
     <script>
-      let btn = document.createElement("button");
+        // Danh sách câu hỏi của game
+        const questions = [
+            {
+                question: "Thiết bị nào sau đây dùng để hiển thị hình ảnh trong máy tính?",
+                options: ["Bàn phím", "Màn hình", "Chuột", "Ổ cứng"],
+                answer: 1
+            },
+            {
+                question: "Đơn vị đo dung lượng bộ nhớ nhỏ nhất trong các đơn vị sau là gì?",
+                options: ["KB", "MB", "Byte", "GB"],
+                answer: 2
+            },
+            {
+                question: "Hệ điều hành nào phổ biến nhất trên điện thoại thông minh hiện nay?",
+                options: ["Windows", "Android", "MS-DOS", "Linux"],
+                answer: 1
+            },
+            {
+                question: "Phím tắt nào thường dùng để sao chép (Copy) văn bản?",
+                options: ["Ctrl + C", "Ctrl + V", "Ctrl + X", "Ctrl + A"],
+                answer: 0
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        const quizScreen = document.getElementById("quizScreen");
+        const scoreScreen = document.getElementById("scoreScreen");
+
+        function showQuestion() {
+            if (currentQuestion >= questions.length) {
+                quizScreen.style.display = "none";
+                scoreScreen.style.display = "block";
+                scoreScreen.innerText = "Điểm số của bạn: " + score + " / 100 điểm";
+                return;
+            }
+
+            let q = questions[currentQuestion];
+            quizScreen.innerHTML = `<h3>Câu ${currentQuestion + 1}: ${q.question}</h3>`;
+
+            q.options.forEach((opt, index) => {
+                let btn = document.createElement("button");
                 btn.className = "btn";
-                btn.innerText = opt;
+                btn.innerText = (index + 1) + ". " + opt;
                 btn.onclick = () => selectAnswer(index);
-                optionsEl.appendChild(btn);
+                quizScreen.appendChild(btn);
             });
         }
 
@@ -21,16 +114,12 @@
                 score += 25; // Mỗi câu đúng 25 điểm
             }
             currentQuestion++;
-            if (currentQuestion < questions.length) {
-                showQuestion();
-            } else {
-                quizScreen.style.display = "none";
-                scoreScreen.style.display = "block";
-                finalScoreEl.innerText = "Điểm số của bạn: " + score + " / 100 điểm";
-            }
+            showQuestion();
         }
 
+        // Khởi chạy câu hỏi đầu tiên khi mở trang
         showQuestion();
     </script>
+
 </body>
 </html>
