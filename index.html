@@ -1,0 +1,26 @@
+let btn = document.createElement("button");
+                btn.className = "btn";
+                btn.innerText = opt;
+                btn.onclick = () => selectAnswer(index);
+                optionsEl.appendChild(btn);
+            });
+        }
+
+        function selectAnswer(index) {
+            if (index === questions[currentQuestion].answer) {
+                score += 25; // Mỗi câu đúng 25 điểm
+            }
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                showQuestion();
+            } else {
+                quizScreen.style.display = "none";
+                scoreScreen.style.display = "block";
+                finalScoreEl.innerText = "Điểm số của bạn: " + score + " / 100 điểm";
+            }
+        }
+
+        showQuestion();
+    </script>
+</body>
+</html>
