@@ -1,4 +1,14 @@
-let btn = document.createElement("button");
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Game Trắc Nghiệm</title>
+</head>
+<body>
+    <div id="quizScreen"></div>
+    <div id="scoreScreen" style="display:none;"></div>
+    <script>
+      let btn = document.createElement("button");
                 btn.className = "btn";
                 btn.innerText = opt;
                 btn.onclick = () => selectAnswer(index);
